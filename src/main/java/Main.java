@@ -1,7 +1,19 @@
-public class Main {
-    public static void main (String[] args){
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-        System.out.println("Welcome to Software Design");
-        System.out.println("Test");
+public class Main extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("puzzleSelector.fxml"));
+        primaryStage.setTitle("Cyberpunk 2077 Hacking Minigame");
+        primaryStage.setScene(new Scene(root, 900, 450));
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
