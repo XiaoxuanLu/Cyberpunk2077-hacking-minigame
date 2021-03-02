@@ -48,7 +48,7 @@ public class PuzzleController implements Initializable {
                     ClickableCells.addToClickedList(cell.getId());
                     ClickableCells.createCoordinates(Integer.parseInt(cell.getId()));
                     paintButtons(cell);
-                    if (/*Checker.isAllSequencesFound() || */Checker.isBufferFull()){
+                    if (Checker.isAllSequencesFound() || Checker.isBufferFull()){
                         try {
                             Checker.setWin(Checker.numberOfMatch());
                             FXMLLoader loader = new FXMLLoader();
