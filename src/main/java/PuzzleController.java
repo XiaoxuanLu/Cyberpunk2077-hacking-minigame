@@ -19,6 +19,8 @@ public class PuzzleController implements Initializable {
     @FXML Label sequences;
     @FXML GridPane matrix;
     @FXML Label bufferSize;
+    @FXML Label timer;
+    private int buttonSize = 84;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -29,15 +31,16 @@ public class PuzzleController implements Initializable {
 
     private Button createCell(int i, int j){
         Button cell = new Button(Puzzle.getGrid()[i][j]);
-        cell.setPrefSize(60,60);
+        cell.setPrefSize(buttonSize,buttonSize);
         cell.setId(""+i+j);//For direction handling
+        cell.setStyle("-fx-background-color: rgba(0, 0, 0, 0); -fx-font-size: 20px");
         return buttonClick(cell);
     }
 
     private Button buttonClick(Button cell){
         cell.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(javafx.event.ActionEvent event) {
+            public void handle(ActionEvent event) {
                 if (ClickableCells.getClickableCells().contains(cell.getId())) {
                     Buffer.addToBuffer(cell.getText());
                     setBuffer(Buffer.getBuffer());
@@ -45,7 +48,7 @@ public class PuzzleController implements Initializable {
                     ClickableCells.addToClickedList(cell.getId());
                     ClickableCells.createCoordinates(Integer.parseInt(cell.getId()));
                     paintButtons(cell);
-                    if (Checker.checkBufferSize()){
+                    if (Checker.isAllSequencesFound() || Checker.isBufferFull()){
                         try {
                             Checker.setWin(Checker.numberOfMatch());
                             FXMLLoader loader = new FXMLLoader();
@@ -69,6 +72,7 @@ public class PuzzleController implements Initializable {
 
     private void setMatrix(){
         if (Puzzle.getGridSize() == 6) {
+            buttonSize = 70;
             matrix.addColumn(0);
             matrix.addRow(0);
         }
@@ -81,21 +85,14 @@ public class PuzzleController implements Initializable {
     }
 
     private void paintButtons(Button button){
-        button.setStyle("-fx-background-color: red");
+        button.setStyle("-fx-background-color: red; -fx-font-size: 20px");
     }
 
     private void setSequences(){
-        String temp = "";
-        for (String[] i : Puzzle.getSequence()){
-            for (String j : i){
-                temp += j + " ";
-            }
-            temp += "\n";
-        }
-        sequences.setText(temp);
+        sequences.setText(Puzzle.printSequence());
     }
 
-    public void setBuffer(ArrayList<String> list){
+    private void setBuffer(ArrayList<String> list){
         buffer.setText(String.valueOf(list));
     }
 

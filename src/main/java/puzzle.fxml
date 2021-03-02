@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450" prefWidth="900" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuzzleController">
+<AnchorPane maxHeight="450.0" maxWidth="900.0" minHeight="450.0" minWidth="900.0" prefHeight="450" prefWidth="900" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuzzleController">
    <children>
-      <Label fx:id="buffer" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="220.0" prefHeight="45.0" prefWidth="436.0" style="-fx-background-color: black;" textFill="WHITE">
+      <ImageView fitHeight="450.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="buffer" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="305.0" prefHeight="95.0" prefWidth="436.0" style="-fx-background-color: black;" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font></Label>
-      <GridPane fx:id="matrix" alignment="CENTER" layoutX="508.0" layoutY="40.0" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0" prefWidth="360.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="50.0" prefWidth="60.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="60.0" minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="60.0" minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <Label fx:id="sequences" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="47.0" prefHeight="85.0" prefWidth="172.0" style="-fx-background-color: black;" text="Sequences" textAlignment="CENTER" textFill="LIME">
+      <Label fx:id="sequences" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="112.0" prefHeight="121.0" prefWidth="436.0" style="-fx-background-color: black;" text="sequence_list" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <GridPane layoutX="117.0" layoutY="330.0" prefHeight="30.0" prefWidth="196.0">
+      <Label fx:id="bufferSize" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="278.0" prefHeight="27.0" prefWidth="436.0" style="-fx-background-color: black;" text="Entries left: 5" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Segoe Print" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="246.0" prefHeight="17.0" prefWidth="436.0" style="-fx-background-color: black;" text="Buffer" textAlignment="CENTER" textFill="#dfff00">
+         <font>
+            <Font name="Segoe Print" size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="80.0" prefHeight="17.0" prefWidth="436.0" style="-fx-background-color: black;" text="Sequences" textAlignment="CENTER" textFill="#dfff00">
+         <font>
+            <Font name="Segoe Print" size="22.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="matrix" alignment="CENTER" layoutX="478.0" layoutY="16.0" maxHeight="420.0" maxWidth="420.0" minHeight="420.0" minWidth="420.0" prefHeight="420.0" prefWidth="420.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="70.0" prefWidth="84.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="70.0" prefWidth="84.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="70.0" prefWidth="84.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="70.0" prefWidth="84.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="70.0" prefWidth="84.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="84.0" minHeight="70.0" prefHeight="84.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="84.0" minHeight="70.0" prefHeight="84.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="84.0" minHeight="70.0" prefHeight="84.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="84.0" minHeight="70.0" prefHeight="84.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="84.0" minHeight="70.0" prefHeight="84.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Label fx:id="bufferSize" alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="193.0" prefHeight="27.0" prefWidth="145.0" style="-fx-background-color: black;" text="Entries left: 5" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="timer" layoutX="322.0" layoutY="16.0" prefHeight="49.0" prefWidth="153.0" text="Time: ">
          <font>
-            <Font size="18.0" />
+            <Font name="Segoe Print" size="27.0" />
          </font>
       </Label>
    </children>

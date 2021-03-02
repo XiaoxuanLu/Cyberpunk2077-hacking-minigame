@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.net.URL;
@@ -17,17 +18,31 @@ public class EndController implements Initializable {
     @FXML Button tryAgain;
     @FXML Button goBack;
     @FXML Button quit;
+    @FXML ImageView winimage;
+    @FXML ImageView loseimage;
+
+    public void makeWin(){
+        win.setVisible(true);
+        lose.setVisible(false);
+        winimage.setVisible(true);
+        loseimage.setVisible(false);
+        sequences.setText("You have found " + Checker.getWin() + " sequences.");
+    }
+
+    public void makeLose(){
+        win.setVisible(false);
+        lose.setVisible(true);
+        winimage.setVisible(false);
+        loseimage.setVisible(true);
+        sequences.setText("You couldn't find any sequence.");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         if (Checker.getWin() > 0){
-            win.setVisible(true);
-            lose.setVisible(false);
-            sequences.setText("You have found " + Checker.getWin() + " sequences.");
+            makeWin();
         } else {
-            win.setVisible(false);
-            lose.setVisible(true);
-            sequences.setText("You couldn't find any sequence.");
+            makeLose();
         }
         Reset.reset();
     }

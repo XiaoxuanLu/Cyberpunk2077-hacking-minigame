@@ -1,8 +1,13 @@
 public class Checker {
     private static int win = 0;
     private static int matches = 0;
-    public static boolean checkBufferSize(){
+
+    public static boolean isBufferFull(){
         return (Buffer.getBuffer().size() == Buffer.getBufferSize());
+    }
+
+    public static boolean isAllSequencesFound(){
+        return (numberOfMatch() == Puzzle.getSequence().length);
     }
 
     public static void reset(){
@@ -19,6 +24,7 @@ public class Checker {
     }
 
     public static int numberOfMatch(){
+        reset();
         String[][] sequences = Puzzle.getSequence();
         String[] buffer = Buffer.getBuffer().toArray(new String[0]);
         int[] rewarding = new int[sequences.length];

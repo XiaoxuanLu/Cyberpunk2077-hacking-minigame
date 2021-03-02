@@ -60,7 +60,7 @@ public class GameEngine {
         String line = "";
         try {
             //Opening file
-            File myObj = new File("C:/Users/Yellion/IdeaProjects/Software-design/src/main/java/puzzles/txt/" + puzzleID + ".txt");
+            File myObj = new File("src/main/java/puzzles/" + puzzleID + ".txt");
             Scanner myReader = new Scanner(myObj);
 
             //Read buffer size

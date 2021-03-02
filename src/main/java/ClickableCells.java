@@ -43,4 +43,8 @@ public class ClickableCells {
     public static ArrayList<String> getClickableCells(){
         return idList;
     }
+
+    public static ArrayList<String> getClickedCells(){
+        return clickedList;
+    }
 }

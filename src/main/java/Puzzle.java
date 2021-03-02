@@ -35,6 +35,18 @@ public class Puzzle {
         return sequence;
     }
 
+    public static String printSequence(){
+        String sequenceList = "";
+        for (String[] w : sequence){
+            sequenceList += "[" + w[0];
+            for (int i = 1; i < w.length; i++){
+                sequenceList += "," + w[i];
+            }
+            sequenceList += "]\n";
+        }
+        return sequenceList;
+    }
+
     public static void setGridSize(int temp){
         gridSize = temp;
     }
