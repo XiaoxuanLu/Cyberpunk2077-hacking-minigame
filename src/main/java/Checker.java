@@ -6,9 +6,9 @@ public class Checker {
         return (Buffer.getBuffer().size() == Buffer.getBufferSize());
     }
 
-    public static boolean isAllSequencesFound(){
-        return (numberOfMatch() == Puzzle.getSequence().length);
-    }
+    //public static boolean isAllSequencesFound(){
+    //    return (numberOfMatch() == Puzzle.getSequence().length);
+    //}
 
     public static void reset(){
         win = 0;
