@@ -11,17 +11,17 @@
    <children>
       <ImageView fitHeight="450.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../src/main/java/background.png" />
+            <Image url="@background.png" />
          </image>
       </ImageView>
       <ImageView fx:id="loseimage" fitHeight="185.0" fitWidth="188.0" layoutX="357.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../src/main/java/lose.jpg" />
+            <Image url="@lose.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="winimage" fitHeight="185.0" fitWidth="192.0" layoutX="357.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../src/main/java/win.jpg" />
+            <Image url="@win.jpg" />
          </image>
       </ImageView>
       <Text fx:id="win" layoutX="131.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulations!" textAlignment="CENTER" wrappingWidth="640.0">

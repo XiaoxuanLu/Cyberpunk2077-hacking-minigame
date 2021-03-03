@@ -21,22 +21,6 @@ public class EndController implements Initializable {
     @FXML ImageView winimage;
     @FXML ImageView loseimage;
 
-    public void makeWin(){
-        win.setVisible(true);
-        lose.setVisible(false);
-        winimage.setVisible(true);
-        loseimage.setVisible(false);
-        sequences.setText("You have found " + Checker.getWin() + " sequences.");
-    }
-
-    public void makeLose(){
-        win.setVisible(false);
-        lose.setVisible(true);
-        winimage.setVisible(false);
-        loseimage.setVisible(true);
-        sequences.setText("You couldn't find any sequence.");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         if (Checker.getWin() > 0){
@@ -45,6 +29,22 @@ public class EndController implements Initializable {
             makeLose();
         }
         Reset.reset();
+    }
+
+    public void makeWin(){
+        win.setVisible(true);
+        lose.setVisible(false);
+        winimage.setVisible(true);
+        loseimage.setVisible(false);
+        sequences.setText("You have found " + Checker.getWin() + " sequence(s).");
+    }
+
+    public void makeLose(){
+        win.setVisible(false);
+        lose.setVisible(true);
+        winimage.setVisible(false);
+        loseimage.setVisible(true);
+        sequences.setText("You couldn't find any sequence.");
     }
 
     public void goBackAction(javafx.event.ActionEvent event) throws Exception{
