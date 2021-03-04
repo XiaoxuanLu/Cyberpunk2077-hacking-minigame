@@ -50,7 +50,6 @@ public class PuzzleController implements Initializable {
                     paintButtons(cell);
                     if (Checker.isAllSequencesFound() || Checker.isBufferFull()){
                         try {
-                            Checker.setWin(Checker.numberOfMatch());
                             FXMLLoader loader = new FXMLLoader();
                             loader.setLocation(getClass().getResource("end.fxml"));
 

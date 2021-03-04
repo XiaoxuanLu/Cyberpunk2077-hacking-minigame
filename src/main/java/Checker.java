@@ -1,5 +1,4 @@
 public class Checker {
-    private static int win = 0;
     private static int matches = 0;
 
     public static boolean isBufferFull(){
@@ -11,16 +10,11 @@ public class Checker {
     }
 
     public static void reset(){
-        win = 0;
         matches = 0;
     }
 
-    public static void setWin(int temp){
-        win = temp;
-    }
-
-    public static int getWin() {
-        return win;
+    public static int getMatches(){
+        return matches;
     }
 
     public static int numberOfMatch(){

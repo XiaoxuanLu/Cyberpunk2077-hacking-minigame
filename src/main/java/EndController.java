@@ -23,7 +23,7 @@ public class EndController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        if (Checker.getWin() > 0){
+        if (Checker.getMatches() > 0){
             makeWin();
         } else {
             makeLose();
@@ -36,7 +36,7 @@ public class EndController implements Initializable {
         lose.setVisible(false);
         winimage.setVisible(true);
         loseimage.setVisible(false);
-        sequences.setText("You have found " + Checker.getWin() + " sequence(s).");
+        sequences.setText("You have found " + Checker.getMatches() + " sequence(s).");
     }
 
     public void makeLose(){
