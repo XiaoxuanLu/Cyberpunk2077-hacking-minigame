@@ -1,7 +1,6 @@
 package softwaredesign;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,7 +42,6 @@ public class GameEngine {
     public static void readGrid(Scanner myReader, String line){
         //Split the first row of the grid
         String[] list = line.split(" ");
-
         Puzzle.setGridSize(list.length);
 
         Puzzle.allocGrid();
@@ -58,36 +56,35 @@ public class GameEngine {
 
     }
 
-    public static void fileHandler(){
+    public static void fileHandler() throws Exception {
         String line = "";
-        try {
-            //Opening file
-            File myObj = new File("src/main/resources/softwaredesign/puzzles/" + puzzleID + ".txt");
-            Scanner myReader = new Scanner(myObj);
-
-            //Read buffer size
-            Buffer.setBufferSize(Integer.parseInt(myReader.nextLine()));
-
-            //Ignore empty lines
-            line = ignoreEmptyLine(myReader,line);
-
-            //Reading grid from txt file
-            readGrid(myReader,line);
-
-            //Initializing clickable coordinates as the first row of the matrix
-            ClickableCells.initClickableCells();
-            line = "";
-
-            //Ignore empty lines
-            line = ignoreEmptyLine(myReader,line);
-
-            //Reading sequences from txt file
-            readSequences(myReader,line);
-
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+        //Opening file
+        InputStream is = GameEngine.class.getClassLoader().getResourceAsStream("puzzles/" + puzzleID + ".txt");
+        if (is == null){
+            throw new Exception("file not found");
         }
+
+        Scanner myReader = new Scanner(is);
+
+        //Read buffer size
+        Buffer.setBufferSize(Integer.parseInt(myReader.nextLine()));
+
+        //Ignore empty lines
+        line = ignoreEmptyLine(myReader,line);
+
+        //Reading grid from txt file
+        readGrid(myReader,line);
+
+        //Initializing clickable coordinates as the first row of the matrix
+        ClickableCells.initClickableCells();
+        line = "";
+
+        //Ignore empty lines
+        line = ignoreEmptyLine(myReader,line);
+
+        //Reading sequences from txt file
+        readSequences(myReader,line);
+
+        myReader.close();
     }
 }

@@ -23,7 +23,12 @@ public class PuzzleSelectorController {
             errorText.setVisible(true);
         } else {
             GameEngine.setPuzzleID(Integer.parseInt(puzzleNumber.getText()));
-            GameEngine.fileHandler();
+            try {
+                GameEngine.fileHandler();
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("puzzle.fxml"));
