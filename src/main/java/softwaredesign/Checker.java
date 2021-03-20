@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Checker {
     //Variables of the Checker class
     private static int matches = 0;
-    private Buffer buffer = new Buffer();
-    private Sequences sequences = new Sequences();
+    private Buffer buffer;
+    private Sequences sequences;
 
     //Constructor
     public Checker(Buffer myBuffer, Sequences mySequences) {

@@ -7,10 +7,9 @@ import java.util.*;
 
 public class GameEngine {
     //Variables of the GameEngine class
-    private final String puzzleLocation = "puzzles/";
+    private final String PUZZLE_LOCATION = "puzzles/";
     private Stack<GameState> stateStack = new Stack<>();
     private Stack<GameState> undoStack = new Stack<>();
-    private int seconds = 30;
 
     //Creates its containers
     public Buffer buffer = new Buffer();
@@ -23,7 +22,7 @@ public class GameEngine {
         try {
             String line = "";
             //Opening file
-            InputStream is = GameEngine.class.getClassLoader().getResourceAsStream(this.puzzleLocation + puzzleID + ".txt");
+            InputStream is = GameEngine.class.getClassLoader().getResourceAsStream(this.PUZZLE_LOCATION + puzzleID + ".txt");
             if (is == null) {
                 throw new FileNotFoundException("file not found");
             }

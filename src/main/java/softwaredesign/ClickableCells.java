@@ -10,14 +10,14 @@ enum Direction {
 
 public class ClickableCells {
     //Variables of the ClickableCells class
-    private final int gridSize;
+    private final int GRID_SIZE;
     private ArrayList<String> clickableList = new ArrayList<>();
     private ArrayList<String> clickedList = new ArrayList<>();
     private Direction direction = Direction.HORIZONTAL;
 
     //Constructor
     public ClickableCells(int myGridSize) {
-        this.gridSize = myGridSize;
+        this.GRID_SIZE = myGridSize;
     }
 
     //Initializes the first move of the game
@@ -43,7 +43,7 @@ public class ClickableCells {
 
     //Creates coordinates for the picked tile and the current direction, adds them to the list
     private void createCoordinates(int val) {
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < GRID_SIZE; i++) {
             String twoDigitCoordinate = "";
 
             //Decomposes the id of the tile to create coordinates of it

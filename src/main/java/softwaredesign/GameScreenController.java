@@ -46,13 +46,13 @@ public class GameScreenController {
     private Timer timer;
 
     //Constant values to edit them easier
-    private final int buttonSize = 55;
+    private final int BUTTON_SIZE = 55;
 
     //This is less than the original value since the countdown starts to count after 1 second it is initialized
-    private final int time = 29;
+    private final int TIME = 29;
 
     //Variable has to be outside of the Timer method
-    private int seconds = time;
+    private int seconds = TIME;
 
     //Timer method and its variable
     private Timer setTimer() {
@@ -73,7 +73,7 @@ public class GameScreenController {
                 if (seconds > 0) {
                     Platform.runLater(() -> {
                         //Runs platform commands to reach the original thread
-                        if (seconds <= 10)  timerText.setStyle("-fx-background-color: red");
+                        if (seconds <= 10)  timerText.setStyle("-fx-background-color: #ff0000");
                         else timerText.setStyle("-fx-background-color: null");
                         timerText.setText("Time: " + seconds);
                         seconds--;
@@ -97,7 +97,7 @@ public class GameScreenController {
 
     //Resets the seconds value to use again
     private void resetSeconds() {
-        seconds = time;
+        seconds = TIME;
     }
 
     //Helper parseId method to convert string to int from the input of puzzleNumber
@@ -167,7 +167,7 @@ public class GameScreenController {
     //Creates a button and sets its Id
     private Button createCell(int i, int j) {
         Button cell = new Button(gameEngine.grid.getTile(i,j));
-        cell.setPrefSize(buttonSize,buttonSize);
+        cell.setPrefSize(BUTTON_SIZE, BUTTON_SIZE);
         cell.setId(""+i+j);
         return buttonClick(cell);
     }
