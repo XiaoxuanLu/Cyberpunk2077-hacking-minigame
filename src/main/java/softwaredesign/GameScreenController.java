@@ -2,7 +2,6 @@ package softwaredesign;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,9 +42,6 @@ public class GameScreenController {
     //Creating object which will be used
     private GameEngine gameEngine;
     private Timer timer;
-
-    //Constant values to edit them easier
-    private final int BUTTON_SIZE = 55;
 
     //This is less than the original value since the countdown starts to count after 1 second it is initialized
     private final int TIME = 29;
@@ -133,11 +128,8 @@ public class GameScreenController {
         puzzleSelector.setVisible(false);
         puzzleScreen.setVisible(true);
 
-        //Allocating the button grid to create buttons
-        gameEngine.grid.allocButtonGrid();
-
-        //Create buttons with the values from the file
-        createButtons();
+        //Set buttons on screen
+        setButtons();
 
         //Show sequence list on the screen
         sequences.setText(gameEngine.sequences.getSequencesAsString());
@@ -150,49 +142,34 @@ public class GameScreenController {
     }
 
     //Creates buttons, adds them to both grid and the visible matrix on the screen
-    private void createButtons() {
+    private void setButtons() {
         gameEngine.grid.setMatrixAlignment(matrix);
         for (int i = 0; i < gameEngine.grid.getGridSize(); i++) {
-            ArrayList<Button> buttonRow = new ArrayList<>();
             for (int j = 0; j < gameEngine.grid.getGridSize(); j++) {
-                Button cell = createCell(i,j);
-                matrix.add(cell,i,j);
-                buttonRow.add(cell);
+                Cell cell = gameEngine.grid.getTile(i,j);
+                setButtonClickAction(cell);
+                matrix.add(cell.getBUTTON(),i,j);
             }
-            gameEngine.grid.addToButtonGrid(buttonRow);
         }
-        gameEngine.grid.updateGrid();
-    }
-
-    //Creates a button and sets its Id
-    private Button createCell(int i, int j) {
-        Button cell = new Button(gameEngine.grid.getTile(i,j));
-        cell.setPrefSize(BUTTON_SIZE, BUTTON_SIZE);
-        cell.setId(""+i+j);
-        return buttonClick(cell);
     }
 
     //Gives the button the on-click feature and returns it
-    private Button buttonClick(Button cell) {
-        cell.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (gameEngine.grid.clickableCells.isClickable(cell.getId())) {
-                    gameEngine.buffer.addToBuffer(cell.getText());
-                    gameEngine.grid.clickableCells.addToClickedList(cell.getId());
-                    gameEngine.addCurrentState();
-                    updateScreenMaterials();
-                    if (gameEngine.checker.isAllSequencesFound() || gameEngine.buffer.isBufferFull()) {
-                        try {
-                            endGame();
-                        } catch (Exception e) {
-                            System.out.println("an error occurred");
-                        }
+    private void setButtonClickAction(Cell cell) {
+        cell.getBUTTON().setOnAction(event -> {
+            if (gameEngine.grid.clickableCells.isClickable(cell.getCOORDINATE())) {
+                gameEngine.buffer.addToBuffer(cell.getBUTTON().getText());
+                gameEngine.grid.clickableCells.addToClickedList(cell.getCOORDINATE());
+                gameEngine.addCurrentState();
+                updateScreenMaterials();
+                if (gameEngine.checker.isAllSequencesFound() || gameEngine.buffer.isBufferFull()) {
+                    try {
+                        endGame();
+                    } catch (Exception e) {
+                        System.out.println("an error occurred");
                     }
                 }
             }
         });
-        return cell;
     }
 
     //This method calls the required methods to prepare end screen
@@ -215,8 +192,27 @@ public class GameScreenController {
         sequencesFound.setText(gameEngine.checker.getMessage());
     }
 
+    //Updates the screen material for:
+    private void updateScreenMaterials() {
+        //Current buffer
+        entries.setText(gameEngine.buffer.getBuffer().toString());
+        //Remaining entries
+        remainingEntries.setText(gameEngine.buffer.getEntriesLeftAsString());
+        //Current grid
+        gameEngine.grid.updateGrid();
+        //Undo and Redo
+        updateButtonVisible();
+    }
+
+    //Updates button visibility of undo and redo
+    private void updateButtonVisible() {
+        Pair<Integer,Integer> states = gameEngine.getStateSizes();
+        undoButton.setVisible(states.getKey() > 0);
+        redoButton.setVisible(states.getValue() > 0);
+    }
+
     //Manage visibility of elements for win conditions
-    public void makeWin() {
+    private void makeWin() {
         win.setVisible(true);
         lose.setVisible(false);
         winImage.setVisible(true);
@@ -224,7 +220,7 @@ public class GameScreenController {
     }
 
     //Manage visibility of elements for lose conditions
-    public void makeLose() {
+    private void makeLose() {
         win.setVisible(false);
         lose.setVisible(true);
         winImage.setVisible(false);
@@ -234,6 +230,7 @@ public class GameScreenController {
     //"Try Another Puzzle" button function
     public void goBackAction() {
         puzzleNumber.clear();
+        errorText.setVisible(false);
         endScreen.setVisible(false);
         puzzleSelector.setVisible(true);
     }
@@ -264,24 +261,5 @@ public class GameScreenController {
         gameEngine.undo();
         updateScreenMaterials();
         gameEngine.checker.numberOfMatch();
-    }
-
-    //Updates the screen material for:
-    private void updateScreenMaterials() {
-        //Current buffer
-        entries.setText(gameEngine.buffer.getBuffer().toString());
-        //Remaining entries
-        remainingEntries.setText(gameEngine.buffer.getEntriesLeftAsString());
-        //Current grid
-        gameEngine.grid.updateGrid();
-        //Undo and Redo
-        updateButtonVisible();
-    }
-
-    //Updates button visibility of undo and redo
-    private void updateButtonVisible() {
-        Pair<Integer,Integer> states = gameEngine.getStateSizes();
-        undoButton.setVisible(states.getKey() > 0);
-        redoButton.setVisible(states.getValue() > 0);
     }
 }

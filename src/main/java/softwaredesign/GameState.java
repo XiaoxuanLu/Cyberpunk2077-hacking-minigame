@@ -1,40 +1,39 @@
 package softwaredesign;
 
-import javafx.scene.control.Button;
-
+import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class GameState {
     //Variables of the GameState class
-    private ArrayList<String> myBuffer = new ArrayList<>();
-    private ArrayList<String> myClickableList = new ArrayList<>();
-    private ArrayList<String> myClickedList = new ArrayList<>();
-    private Direction myDirection;
-    private ArrayList<ArrayList<Button>> myGrid = new ArrayList<>();
+    private final ArrayList<String> BUFFER;
+    private final ArrayList<Pair<Integer,Integer>> CLICKABLE_LIST;
+    private final ArrayList<Pair<Integer,Integer>> CLICKED_LIST;
+    private final Direction DIRECTION;
+    private final ArrayList<ArrayList<Cell>> GRID;
 
     //GameState constructor with the desired arguments
-    public void constructGameState(ArrayList<String> buffer1, ArrayList<String> clickableList1, ArrayList<String> clickedList1, Direction direction1, ArrayList<ArrayList<Button>> grid1) {
-        this.myBuffer = buffer1;
-        this.myClickableList = clickableList1;
-        this.myClickedList = clickedList1;
-        this.myDirection = direction1;
-        this.myGrid = grid1;
+    public GameState(Buffer buffer, Grid grid) {
+        this.BUFFER = buffer.getBuffer();
+        this.CLICKABLE_LIST = grid.clickableCells.getClickableCells();
+        this.CLICKED_LIST = grid.clickableCells.getClickedCells();
+        this.DIRECTION = grid.clickableCells.getDirection();
+        this.GRID = grid.getGrid();
     }
 
     //These 5 methods return the current state's variables in the desired type
-    public ArrayList<String> getMyBuffer() {
-        return new ArrayList<>(this.myBuffer);
+    public ArrayList<String> getBUFFER() {
+        return new ArrayList<>(BUFFER);
     }
-    public ArrayList<String> getMyClickableList() {
-        return new ArrayList<>(this.myClickableList);
+    public ArrayList<Pair<Integer,Integer>> getCLICKABLE_LIST() {
+        return new ArrayList<>(CLICKABLE_LIST);
     }
-    public ArrayList<String> getMyClickedList() {
-        return new ArrayList<>(this.myClickedList);
+    public ArrayList<Pair<Integer,Integer>> getCLICKED_LIST() {
+        return new ArrayList<>(CLICKED_LIST);
     }
-    public Direction getMyDirection() {
-        return myDirection;
+    public Direction getDIRECTION() {
+        return DIRECTION;
     }
-    public ArrayList<ArrayList<Button>> getMyGrid() {
-        return new ArrayList<>(this.myGrid);
+    public ArrayList<ArrayList<Cell>> getGRID() {
+        return new ArrayList<>(GRID);
     }
 }

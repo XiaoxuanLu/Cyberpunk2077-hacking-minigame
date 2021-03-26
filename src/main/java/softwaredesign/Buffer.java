@@ -23,7 +23,7 @@ public class Buffer {
     }
 
     //Sets buffer size throws if the input has a wrong type
-    public void setBufferSize(String temp) throws Exception{
+    public void setBufferSize(String temp) throws Exception {
         try {
             this.bufferSize = Integer.parseInt(temp);
         } catch (Exception e) {

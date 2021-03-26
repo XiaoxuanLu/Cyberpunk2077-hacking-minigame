@@ -8,8 +8,8 @@ import java.util.*;
 public class GameEngine {
     //Variables of the GameEngine class
     private final String PUZZLE_LOCATION = "puzzles/";
-    private Stack<GameState> stateStack = new Stack<>();
-    private Stack<GameState> undoStack = new Stack<>();
+    private final Stack<GameState> STATE_STACK = new Stack<>();
+    private final Stack<GameState> UNDO_STACK = new Stack<>();
 
     //Creates its containers
     public Buffer buffer = new Buffer();
@@ -22,15 +22,12 @@ public class GameEngine {
         try {
             String line = "";
             //Opening file
-            InputStream is = GameEngine.class.getClassLoader().getResourceAsStream(this.PUZZLE_LOCATION + puzzleID + ".txt");
-            if (is == null) {
-                throw new FileNotFoundException("file not found");
-            }
-
+            InputStream is = GameEngine.class.getClassLoader().getResourceAsStream(PUZZLE_LOCATION + puzzleID + ".txt");
+            if (is == null) { throw new FileNotFoundException("file not found"); }
             Scanner myReader = new Scanner(is);
 
             //Read buffer size
-            this.buffer.setBufferSize(myReader.nextLine());
+            buffer.setBufferSize(myReader.nextLine());
 
             //Ignore empty lines
             line = ignoreEmptyLine(myReader, line);
@@ -39,8 +36,8 @@ public class GameEngine {
             readGrid(myReader, line);
 
             //Initializing clickable coordinates as the first row of the matrix
-            this.grid.clickableCells = new ClickableCells(this.grid.getGridSize());
-            this.grid.clickableCells.createFirstCells();
+            grid.clickableCells = new ClickableCells(grid.getGridSize());
+            grid.clickableCells.createFirstCells();
 
             line = "";
 
@@ -79,7 +76,7 @@ public class GameEngine {
                 list = newList;
             }
 
-            this.sequences.setSequenceList(sequenceLengths, list);
+            sequences.setSequenceList(sequenceLengths, list);
         } catch (Exception e) {
             throw new Exception("Sequences couldn't set");
         }
@@ -91,19 +88,18 @@ public class GameEngine {
             //Split the first row of the grid
             String[] tempList = line.split(" ");
 
-            //Convert the list to ArrayList<String> in order to use it in method setGrid
-            ArrayList<String> gridRows = new ArrayList<>(Arrays.asList(tempList));
-
-            //Initializing the grid by assigning first line
-            this.grid.initGrid(gridRows);
+            //Create hash grid container to parse it
+            ArrayList<ArrayList<String>> hashGrid = new ArrayList<>();
 
             //Read from file and fill the grid
             while (!line.isEmpty()) {
+                ArrayList<String> gridRow = new ArrayList<>(Arrays.asList(tempList));
+                hashGrid.add(gridRow);
                 line = myReader.nextLine();
                 tempList = line.split(" ");
-                gridRows = new ArrayList<>(Arrays.asList(tempList));
-                this.grid.addToGrid(gridRows);
             }
+
+            grid.createGrid(hashGrid);
         } catch (Exception e) {
             throw new Exception("Grid couldn't set");
         }
@@ -119,45 +115,42 @@ public class GameEngine {
 
     //Creates current state and adds it to the stateStack
     public void addCurrentState() {
-        GameState myState = new GameState();
-        myState.constructGameState(this.buffer.getBuffer(),this.grid.clickableCells.getClickableCells(),this.grid.clickableCells.getClickedCells(),this.grid.clickableCells.getDirection(),this.grid.getButtonGrid());
-        stateStack.add(myState);
-        undoStack.clear();
+        GameState myState = new GameState(buffer,grid);
+        STATE_STACK.add(myState);
+        UNDO_STACK.clear();
     }
 
     /*Undo action gets the last element of the stateStack and parses it to current containers
     * This functions also passes the state to undoStack to use it later with redo method*/
     public void undo() {
-        if (stateStack.size() > 1) {
-            undoStack.add(stateStack.pop());
-            GameState myState = stateStack.peek();
-
-            this.buffer.setBuffer(myState.getMyBuffer());
-            this.grid.clickableCells.setClickableList(myState.getMyClickableList());
-            this.grid.clickableCells.setDirection(myState.getMyDirection());
-            this.grid.clickableCells.setClickedList(myState.getMyClickedList());
-            this.grid.setButtonGrid(myState.getMyGrid());
+        if (STATE_STACK.size() > 1) {
+            UNDO_STACK.add(STATE_STACK.pop());
+            GameState myState = STATE_STACK.peek();
+            updateGameConfiguration(myState);
         }
     }
 
     /*Redo action gets the last element of the undoStack and parses it to current containers
     * This functions also passes the state to stateStack to use it later with undo method*/
     public void redo() {
-        if (!undoStack.empty()) {
-            GameState myState = undoStack.pop();
-
-            this.buffer.setBuffer(myState.getMyBuffer());
-            this.grid.clickableCells.setClickableList(myState.getMyClickableList());
-            this.grid.clickableCells.setDirection(myState.getMyDirection());
-            this.grid.clickableCells.setClickedList(myState.getMyClickedList());
-            this.grid.setButtonGrid(myState.getMyGrid());
-
-            stateStack.add(myState);
+        if (!UNDO_STACK.empty()) {
+            GameState myState = UNDO_STACK.pop();
+            updateGameConfiguration(myState);
+            STATE_STACK.add(myState);
         }
+    }
+
+    private void updateGameConfiguration(GameState myState){
+        buffer.setBuffer(myState.getBUFFER());
+        grid.clickableCells.setClickableList(myState.getCLICKABLE_LIST());
+        grid.clickableCells.setDirection(myState.getDIRECTION());
+        grid.clickableCells.setClickedList(myState.getCLICKED_LIST());
+        grid.setGrid(myState.getGRID());
+        checker.updateBufferObject(buffer);
     }
 
     //Returns the number of elements of the stateStack and undoStack to configure button visibility
     public Pair<Integer,Integer> getStateSizes() {
-        return new Pair<>(stateStack.size() - 1,undoStack.size());
+        return new Pair<>(STATE_STACK.size() - 1, UNDO_STACK.size());
     }
 }

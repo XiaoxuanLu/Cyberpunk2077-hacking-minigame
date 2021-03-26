@@ -4,19 +4,23 @@ import java.util.ArrayList;
 
 public class Checker {
     //Variables of the Checker class
-    private static int matches = 0;
+    private int matches = 0;
     private Buffer buffer;
-    private Sequences sequences;
+    private final Sequences SEQUENCES;
 
     //Constructor
     public Checker(Buffer myBuffer, Sequences mySequences) {
         this.buffer = myBuffer;
-        this.sequences = mySequences;
+        this.SEQUENCES = mySequences;
+    }
+
+    public void updateBufferObject(Buffer myBuffer){
+        buffer = myBuffer;
     }
 
     //Checks if all sequences exist in the current buffer
     public boolean isAllSequencesFound() {
-        return (numberOfMatch() == this.sequences.getSequenceList().size());
+        return (numberOfMatch() == this.SEQUENCES.getSequenceList().size());
     }
 
     //Sets the endGame message in desired form
@@ -30,7 +34,7 @@ public class Checker {
         matches = 0;
 
         //Gets sequences and splits them into desired type and format
-        ArrayList<ArrayList<String>> sequences = this.sequences.getSequenceList();
+        ArrayList<ArrayList<String>> sequences = this.SEQUENCES.getSequenceList();
         String[] currentBuffer = this.buffer.getBuffer().toArray(new String[0]);
         int[] rewarding = new int[sequences.size()];
 
