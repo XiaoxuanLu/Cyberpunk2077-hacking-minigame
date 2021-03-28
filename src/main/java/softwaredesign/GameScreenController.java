@@ -189,7 +189,7 @@ public class GameScreenController {
         else makeLose();
 
         //Tell the user if he/she found any sequences
-        sequencesFound.setText(gameEngine.checker.getMessage());
+        sequencesFound.setText(gameEngine.checker.getEndMessage());
     }
 
     //Updates the screen material for:

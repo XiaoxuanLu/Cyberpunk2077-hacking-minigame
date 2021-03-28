@@ -5,17 +5,13 @@ import java.util.ArrayList;
 public class Checker {
     //Variables of the Checker class
     private int matches = 0;
-    private Buffer buffer;
+    private final Buffer BUFFER;
     private final Sequences SEQUENCES;
 
     //Constructor
     public Checker(Buffer myBuffer, Sequences mySequences) {
-        this.buffer = myBuffer;
+        this.BUFFER = myBuffer;
         this.SEQUENCES = mySequences;
-    }
-
-    public void updateBufferObject(Buffer myBuffer){
-        buffer = myBuffer;
     }
 
     //Checks if all sequences exist in the current buffer
@@ -24,7 +20,7 @@ public class Checker {
     }
 
     //Sets the endGame message in desired form
-    public String getMessage() {
+    public String getEndMessage() {
         if (matches > 0) return "You have found " + matches + " sequence(s).";
         else return "You couldn't find any sequence.";
     }
@@ -35,7 +31,7 @@ public class Checker {
 
         //Gets sequences and splits them into desired type and format
         ArrayList<ArrayList<String>> sequences = this.SEQUENCES.getSequenceList();
-        String[] currentBuffer = this.buffer.getBuffer().toArray(new String[0]);
+        String[] currentBuffer = this.BUFFER.getBuffer().toArray(new String[0]);
         int[] rewarding = new int[sequences.size()];
 
         //Uses helper method

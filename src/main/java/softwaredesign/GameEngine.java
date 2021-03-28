@@ -146,7 +146,6 @@ public class GameEngine {
         grid.clickableCells.setDirection(myState.getDIRECTION());
         grid.clickableCells.setClickedList(myState.getCLICKED_LIST());
         grid.setGrid(myState.getGRID());
-        checker.updateBufferObject(buffer);
     }
 
     //Returns the number of elements of the stateStack and undoStack to configure button visibility
