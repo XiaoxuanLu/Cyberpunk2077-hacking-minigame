@@ -1,7 +1,6 @@
 package softwaredesign;
 
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 
 //Global enumerator to detect the axis of the next move
